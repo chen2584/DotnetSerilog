@@ -17,14 +17,12 @@ namespace DotNetSerilog
     {
         public static void Main(string[] args)
         {
-
-            var pathToExe = Assembly.GetEntryAssembly().Location;
-            var pathToContentRoot = Path.GetDirectoryName(pathToExe);
+            var rootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .WriteTo.Console()
-                .WriteTo.File(Path.Combine(pathToContentRoot, "logs/log-.log"),
+                .WriteTo.File(Path.Combine(rootPath, "logs/log-.log"),
                 rollingInterval: RollingInterval.Day,
                 fileSizeLimitBytes: 1_000_000,
                 rollOnFileSizeLimit: true,
